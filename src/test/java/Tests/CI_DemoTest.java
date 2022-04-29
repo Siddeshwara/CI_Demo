@@ -23,7 +23,6 @@ public class CI_DemoTest {
         Thread.sleep(3000);
     }
 
-
     @Test
     public void linkExistence()
     {
@@ -47,6 +46,7 @@ public class CI_DemoTest {
     public void teardown()
     {
         driver.close();
+        System.out.println("Everything okay!");
     }
 
 }
