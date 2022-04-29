@@ -28,7 +28,7 @@ public class CI_DemoTest {
     {
         boolean linkExistence=driver.findElement(By.linkText("Sell")).isDisplayed();
 
-        if (linkExistence == true) {
+        if (linkExistence == false) {
             System.out.println("Sell Link Exists – Passed");
             Assert.assertTrue(true);
         }
