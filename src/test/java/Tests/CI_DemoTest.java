@@ -2,8 +2,10 @@ package Tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,25 +20,30 @@ public class CI_DemoTest {
 
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get("https://www.amazon.com/");
+        driver.get("http://the-internet.herokuapp.com/key_presses");
+        //driver.get("http://localhost:8080/");
         driver.manage().window().maximize();
         Thread.sleep(3000);
     }
 
     @Test
-    public void linkExistence()
-    {
-        boolean linkExistence=driver.findElement(By.linkText("Sell")).isDisplayed();
+    public void KeyAction() throws InterruptedException {
 
-        if (linkExistence == false) {
-            System.out.println("Sell Link Exists – Passed");
-            Assert.assertTrue(true);
+        Actions action = new Actions(driver);
+
+        action.sendKeys(Keys.CANCEL).build().perform();//Keys.ESCAPE, Keys.PAGE_DOWN,Keys.PAGE_UP,Keys.BACK_SPACE
+
+        String text = driver.findElement(By.id("result")).getText();
+        System.out.println(text);
+
+        Thread.sleep(3000);
+        if(text.contains("You entered: CANCEL"))
+        {
+            System.out.println("Test passed");
         }
         else
         {
-            System.out.println("Sell Link Not Exists – Failed");
-            Assert.assertTrue(false);
-
+            System.out.println("Test Failed");
         }
     }
 
